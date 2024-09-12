@@ -11,7 +11,7 @@ USE `commerce_ai` ;
 -- Table `commerce_ai`.`users`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `commerce_ai`.`users` (
-  `id` INT NOT NULL COMMENT '	',
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `username` VARCHAR(45) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
@@ -27,7 +27,7 @@ ENGINE = InnoDB;
 -- Table `commerce_ai`.`products`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `commerce_ai`.`products` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(45) NOT NULL,
   `description` VARCHAR(45) NULL,
   `barcode` TEXT NOT NULL,
@@ -60,7 +60,7 @@ ENGINE = InnoDB;
 -- Table `commerce_ai`.`cards`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `commerce_ai`.`cards` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `card_name` VARCHAR(45) NULL,
   `number` VARCHAR(45) NULL,
   `holder_name` VARCHAR(45) NULL,
@@ -91,7 +91,7 @@ ENGINE = InnoDB;
 -- Table `commerce_ai`.`categories`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `commerce_ai`.`categories` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(45) NULL,
   `created_at` DATETIME NULL,
   `updated_at` DATETIME NULL,
@@ -104,7 +104,7 @@ ENGINE = InnoDB;
 -- Table `commerce_ai`.`products_categories`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `commerce_ai`.`products_categories` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `created_at` DATETIME NULL,
   `updated_at` DATETIME NULL,
   `deleted_at` DATETIME NULL,
@@ -130,7 +130,7 @@ ENGINE = InnoDB;
 -- Table `commerce_ai`.`orders`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `commerce_ai`.`orders` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NOT NULL,
   `created_at` DATETIME NULL,
   `finished` TINYINT(1) NULL,
@@ -150,7 +150,7 @@ ENGINE = InnoDB;
 -- Table `commerce_ai`.`orders_items`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `commerce_ai`.`orders_items` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `price` DECIMAL(13,2) NULL,
   `amount` INT NULL,
   `product_id` INT NOT NULL,
@@ -174,7 +174,7 @@ ENGINE = InnoDB;
 -- Table `commerce_ai`.`payments`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `commerce_ai`.`payments` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `type` VARCHAR(45) NULL,
   `installments` INT(2) NULL,
   `order_id` INT NOT NULL,

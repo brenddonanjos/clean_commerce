@@ -1,20 +1,25 @@
 syntax = "proto3";
 package pb;
 option go_package = "internal/infra/grpc/pb";
+import "google/protobuf/timestamp.proto";
 
-message Card {
+message CardResponse {
     int32 id = 1;
-    string number = 2;
-    string holder_name = 3;
-    int32 expiry_month = 4;
-    int32 expiry_year = 5;
-    int32 cvv = 6;
-    int32 user_id = 7;
-    int32 address_id = 8;
+    string card_name = 2;
+    string number = 3;
+    string holder_name = 4;
+    int32 expiry_month = 5;
+    int32 expiry_year = 6;
+    int32 cvv = 7;
+    int32 user_id = 8;
+    int32 address_id = 9;
+    google.protobuf.Timestamp created_at = 10;
+    google.protobuf.Timestamp updated_at = 11;
+    google.protobuf.Timestamp deleted_at = 12;
 }
 
 message CreateCardRequest {
-    string name = 1;
+    string card_name = 1;
     string number = 2;
     string holder_name = 3;
     int32 expiry_month = 4;
@@ -24,12 +29,8 @@ message CreateCardRequest {
     int32 address_id = 8;
 }
 
-message CardResponse {
-    Card card = 1;
-}
-
 message CardsResponse {
-    repeated Card cards = 1;
+    repeated CardResponse cards = 1;
 }
 
 service CardService {

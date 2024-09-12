@@ -5,3 +5,10 @@ LABEL maintainer 'Brenddon Anjos <brenddon.dev@gmail.com>'
 WORKDIR /go/src
 
 ENV GOOS=linux CGO_ENABLED=1 GOARCH=amd64
+
+#air
+RUN go install github.com/air-verse/air@latest
+#Evans
+RUN go install github.com/ktr0731/evans@latest
+
+CMD ["bash"]

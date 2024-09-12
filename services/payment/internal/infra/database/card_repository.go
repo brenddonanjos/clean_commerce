@@ -1,36 +1,40 @@
 package database
 
 import (
-	"database/sql"
 	"time"
 
-	"github.com/brenddonanjos/payment_grpc_rabbitmq/services/payment/internal/entity"
+	"github.com/brenddonanjos/clean_commerce/services/payment/internal/entity"
+	"github.com/jmoiron/sqlx"
 )
 
 type CardRepository struct {
-	Db *sql.DB
+	Db *sqlx.DB
 }
 
-func NewCardRepository(db *sql.DB) *CardRepository {
+func NewCardRepository(db *sqlx.DB) *CardRepository {
 	return &CardRepository{Db: db}
 }
 
 func (cr *CardRepository) Save(card *entity.Card) (*entity.Card, error) {
-	stmt, err := cr.Db.Prepare("INSERT INTO cards (number, holder_name, expirity_month, expirity_year, cvv, user_id, address_id, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)")
+	stmt, err := cr.Db.Prepare("INSERT INTO cards (card_name, number, holder_name, expirity_month, expirity_year, cvv, user_id, address_id, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
 	if err != nil {
 		return nil, err
 	}
 	currentTime := time.Now()
 
 	result, err := stmt.Exec(
+		card.CardName,
 		card.Number,
 		card.HolderName,
 		card.ExpirityMonth,
 		card.ExpirityYear,
 		card.CVV,
+		card.UserID,
+		card.AddressID,
 		currentTime,
 		currentTime,
 	)
+
 	if err != nil {
 		return nil, err
 	}

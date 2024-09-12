@@ -16,3 +16,25 @@ type Card struct {
 	UpdatedAt     time.Time `json:"updated_at" db:"updated_at"`
 	DeletedAt     time.Time `json:"deleted_at" db:"deleted_at"`
 }
+
+func NewCard(
+	cardName string,
+	number string,
+	holderName string,
+	expirityMonth int32,
+	expirityYear int32,
+	cvv int32,
+	userID int32,
+	addressID int32) *Card {
+
+	return &Card{
+		CardName:      cardName,
+		Number:        number,
+		HolderName:    holderName,
+		ExpirityMonth: expirityMonth,
+		ExpirityYear:  expirityYear,
+		CVV:           cvv,
+		UserID:        userID,
+		AddressID:     addressID,
+	}
+}
