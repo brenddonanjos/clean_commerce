@@ -1,0 +1,7 @@
+FROM golang:1.22.7
+
+LABEL maintainer 'Brenddon Anjos <brenddon.dev@gmail.com>'
+
+WORKDIR /go/src
+
+ENV GOOS=linux CGO_ENABLED=1 GOARCH=amd64

@@ -1,0 +1,35 @@
+version: '3.6'
+
+services:
+  payment:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.payment
+    container_name: payment
+    volumes:
+      - ./services/payment:/go/src
+    ports:
+      - 50051:50051
+    command: bash -c "cd cmd/payment-service && go build main.go && go run main.go"
+    depends_on:
+      - mysql
+    networks:
+      - backend
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: commerce_ai
+      MYSQL_PASSWORD: root
+    cap_add:
+      - SYS_NICE 
+    volumes:
+      - ./db/mysql:/var/lib/mysql
+    networks:
+      - backend
+networks:
+  backend:
+    driver: bridge
