@@ -2,6 +2,7 @@ syntax = "proto3";
 package pb;
 option go_package = "internal/infra/grpc/pb";
 import "google/protobuf/timestamp.proto";
+import "google/api/annotations.proto";
 
 message CardResponse {
     int32 id = 1;
@@ -34,5 +35,10 @@ message CardsResponse {
 }
 
 service CardService {
-    rpc CreateCard(CreateCardRequest) returns (CardResponse) {}
+    rpc CreateCard(CreateCardRequest) returns (CardResponse) {
+        option (google.api.http) = {
+            post: "/card"
+            body: "*"
+          };
+    }
 }

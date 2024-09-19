@@ -1,6 +1,7 @@
 package database
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/brenddonanjos/clean_commerce/services/payment/internal/entity"
@@ -16,6 +17,7 @@ func NewCardRepository(db *sqlx.DB) *CardRepository {
 }
 
 func (cr *CardRepository) Save(card *entity.Card) (*entity.Card, error) {
+	fmt.Println("Saving card...")
 	stmt, err := cr.Db.Prepare("INSERT INTO cards (card_name, number, holder_name, expirity_month, expirity_year, cvv, user_id, address_id, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
 	if err != nil {
 		return nil, err

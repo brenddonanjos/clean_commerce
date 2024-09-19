@@ -19,6 +19,8 @@
 
 # Go workspace file
 go.work
+#DB
 db/mysql
-
-services/payment/cmd/payment-service/.env.example
+#Services
+services/payment/cmd/payment-service/.env
+googleapis

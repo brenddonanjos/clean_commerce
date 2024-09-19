@@ -1,6 +1,7 @@
 package usecase
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/brenddonanjos/clean_commerce/services/payment/internal/entity"
@@ -40,6 +41,7 @@ func NewCreateCardUseCase(cardRepository entity.CardRepositoryInterface) *Create
 }
 
 func (uc *CreateCardUseCase) Execute(input CardInputDTO) (*CardOutputDTO, error) {
+	fmt.Println("Use case: Saving card...")
 	card := entity.NewCard(
 		input.CardName,
 		input.Number,
