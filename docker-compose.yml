@@ -12,7 +12,7 @@ services:
       MYSQL_DATABASE: commerce_ai
       MYSQL_PASSWORD: root
     cap_add:
-      - SYS_NICE 
+      - SYS_NICE
     volumes:
       - ./db/mysql:/var/lib/mysql
     networks:
@@ -39,12 +39,14 @@ services:
     volumes:
       - ./services/gateway:/go/src
     ports:
-      - 8080:8080
+      - 8000:8000
+    environment:
+      - PAYMENT_GRPC_SERVER_ENDPOINT=payment:50051
     command: bash -c "cd cmd/gateway-service && go build main.go && go run main.go"
     networks:
       - backend
     depends_on:
-      - payment
+      - mysql
 
 networks:
   backend:

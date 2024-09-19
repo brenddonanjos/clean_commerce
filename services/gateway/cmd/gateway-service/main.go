@@ -2,19 +2,18 @@ package main
 
 import (
 	"context"
-	"flag"
+	"log"
 	"net/http"
 
-	"github.com/grpc-ecosystem/grpc-gateway/runtime"
+	"github.com/brenddonanjos/clean_commerce/services/gateway/internal/infra/grpc/pb"
+	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
-
-	paymentPb "github.com/brenddonanjos/clean_commerce/services/payment/internal/infra/grpc/pb"
 )
 
-var (
-	paymentEndpoint = flag.String("payment-endpoint", "payment:50051", "Api gateway is ON!")
-)
+// var (
+// 	paymentEndpoint = flag.String("payment-endpoint", "payment:50051", "gRPC payment endpoint")
+// )
 
 func main() {
 
@@ -24,10 +23,15 @@ func main() {
 
 	mux := runtime.NewServeMux()
 	opts := []grpc.DialOption{grpc.WithTransportCredentials(insecure.NewCredentials())}
-	err := paymentPb.RegisterCardServiceHandlerFromEndpoint(ctx, mux, "payment:50051", opts)
+
+	//Payment service
+	err := pb.RegisterCardServiceHandlerFromEndpoint(ctx, mux, "payment:50051", opts)
 	if err != nil {
 		panic(err)
 	}
 
-	http.ListenAndServe(":8081", mux)
+	log.Println("Gateway está rodando na porta 8000...")
+	if err := http.ListenAndServe(":8000", mux); err != nil {
+		log.Fatalf("Falha ao iniciar o servidor HTTP: %v", err)
+	}
 }
