@@ -1,0 +1,38 @@
+syntax = "proto3";
+package pb_user;
+option go_package = "internal/infra/grpc/pb_user";
+import "google/protobuf/timestamp.proto";
+import "google/api/annotations.proto";
+
+message UserResponse {
+    int32 id = 1;
+    string name = 2;
+    string username = 3;
+    string email = 4;
+    string password = 5;
+    google.protobuf.Timestamp birth_date = 6;
+    google.protobuf.Timestamp created_at = 7;
+    google.protobuf.Timestamp updated_at = 8;
+    google.protobuf.Timestamp deleted_at = 9;
+}
+
+message CreateUserRequest {
+    string name = 1;
+    string username = 2;
+    string email = 3;
+    string password = 4;
+    string birth_date = 5;
+}
+
+message UsersResponse {
+    repeated UserResponse users = 1;
+}
+
+service UserService {
+    rpc CreateUser(CreateUserRequest) returns (UserResponse) {
+        option (google.api.http) = {
+            post: "/user"
+            body: "*"
+        };
+    }
+}

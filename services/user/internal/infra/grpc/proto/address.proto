@@ -1,0 +1,42 @@
+syntax = "proto3";
+package pb_user;
+option go_package = "internal/infra/grpc/pb_user";
+import "google/protobuf/timestamp.proto";
+import "google/api/annotations.proto";
+
+message AddressResponse {
+    int32 id = 1;
+    string street = 2;
+    string number = 3;
+    string zip_code = 4;
+    string city = 5;
+    string country = 6;
+    string state = 7;
+    int32 user_id = 8;
+    google.protobuf.Timestamp created_at = 9;
+    google.protobuf.Timestamp updated_at = 10;
+    google.protobuf.Timestamp deleted_at = 11;
+}
+
+message CreateAddressRequest {
+    string street = 1;
+    string number = 2;
+    string zip_code = 3;
+    string city = 4;
+    string country = 5;
+    string state = 6;
+    int32 user_id = 7;
+}
+
+message AddressesResponse {
+    repeated AddressResponse addresses = 1;
+}
+
+service AddressService {
+    rpc CreateAddress(CreateAddressRequest) returns (AddressResponse){
+        option (google.api.http) = {
+            post: "/address"
+            body: "*"
+        };
+    };
+}

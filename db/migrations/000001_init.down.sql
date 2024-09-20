@@ -17,11 +17,11 @@ DROP TABLE IF EXISTS `commerce_ai`.`products_categories`;
 -- Drop table `commerce_ai`.`categories`
 DROP TABLE IF EXISTS `commerce_ai`.`categories`;
 
--- Drop table `commerce_ai`.`addresses`
-DROP TABLE IF EXISTS `commerce_ai`.`addresses`;
-
 -- Drop table `commerce_ai`.`cards`
 DROP TABLE IF EXISTS `commerce_ai`.`cards`;
+
+-- Drop table `commerce_ai`.`addresses`
+DROP TABLE IF EXISTS `commerce_ai`.`addresses`;
 
 -- Drop table `commerce_ai`.`products`
 DROP TABLE IF EXISTS `commerce_ai`.`products`;

@@ -3,23 +3,23 @@ package service
 import (
 	"context"
 
-	"github.com/brenddonanjos/clean_commerce/services/payment/internal/infra/grpc/pb"
+	"github.com/brenddonanjos/clean_commerce/services/payment/internal/infra/grpc/pb_payment"
 	"github.com/brenddonanjos/clean_commerce/services/payment/internal/usecase"
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 type CardService struct {
-	pb.UnimplementedCardServiceServer
+	pb_payment.UnimplementedCardServiceServer
 	CreateCardUseCase usecase.CreateCardUseCase
 }
 
-func NewCardService(createOrderUsecase *usecase.CreateCardUseCase) *CardService {
+func NewCardService(createCardUsecase *usecase.CreateCardUseCase) *CardService {
 	return &CardService{
-		CreateCardUseCase: *createOrderUsecase,
+		CreateCardUseCase: *createCardUsecase,
 	}
 }
 
-func (cs *CardService) CreateCard(ctx context.Context, request *pb.CreateCardRequest) (*pb.CardResponse, error) {
+func (cs *CardService) CreateCard(ctx context.Context, request *pb_payment.CreateCardRequest) (*pb_payment.CardResponse, error) {
 	createCardDTO := usecase.CardInputDTO{
 		CardName:    request.CardName,
 		Number:      request.Number,
@@ -36,7 +36,7 @@ func (cs *CardService) CreateCard(ctx context.Context, request *pb.CreateCardReq
 		return nil, err
 	}
 
-	response := &pb.CardResponse{
+	response := &pb_payment.CardResponse{
 		Id:          outputDTO.ID,
 		CardName:    outputDTO.CardName,
 		Number:      outputDTO.Number,

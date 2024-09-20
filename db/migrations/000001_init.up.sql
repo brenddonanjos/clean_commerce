@@ -50,10 +50,18 @@ CREATE TABLE IF NOT EXISTS `commerce_ai`.`addresses` (
   `city` VARCHAR(45) NULL,
   `country` VARCHAR(45) NULL,
   `state` VARCHAR(45) NULL,
+  `user_id` INT NOT NULL,
   `created_at` DATETIME NULL,
   `updated_at` DATETIME NULL,
   `deleted_at` DATETIME NULL,
-  PRIMARY KEY (`id`))
+  PRIMARY KEY (`id`),
+  INDEX `fk_addresses_users1_idx` (`user_id` ASC) VISIBLE,
+  CONSTRAINT `fk_addresses_users1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `commerce_ai`.`users` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+  )
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------

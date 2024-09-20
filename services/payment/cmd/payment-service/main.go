@@ -6,7 +6,7 @@ import (
 
 	"github.com/brenddonanjos/clean_commerce/services/payment/configs"
 	"github.com/brenddonanjos/clean_commerce/services/payment/internal/infra/database"
-	"github.com/brenddonanjos/clean_commerce/services/payment/internal/infra/grpc/pb"
+	"github.com/brenddonanjos/clean_commerce/services/payment/internal/infra/grpc/pb_payment"
 	"github.com/brenddonanjos/clean_commerce/services/payment/internal/infra/grpc/service"
 	"github.com/brenddonanjos/clean_commerce/services/payment/internal/usecase"
 	_ "github.com/go-sql-driver/mysql"
@@ -35,10 +35,10 @@ func main() {
 
 	grpcServer := grpc.NewServer()
 	createCardService := service.NewCardService(createCardUsecase)
-	pb.RegisterCardServiceServer(grpcServer, createCardService)
+	pb_payment.RegisterCardServiceServer(grpcServer, createCardService)
 	reflection.Register(grpcServer)
 
-	fmt.Println("Starting gRPC server on port 50051...")
+	fmt.Println("Starting gRPC Payment server on port 50051...")
 	listener, err := net.Listen("tcp", ":50051")
 	if err != nil {
 		panic(err)
