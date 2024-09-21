@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net"
 
+	"github.com/brenddonanjos/clean_commerce/services/user/configs"
 	"github.com/brenddonanjos/clean_commerce/services/user/internal/infra/database"
 	pb "github.com/brenddonanjos/clean_commerce/services/user/internal/infra/grpc/pb_user"
 	"github.com/brenddonanjos/clean_commerce/services/user/internal/infra/grpc/service"
@@ -16,7 +17,14 @@ import (
 )
 
 func main() {
-	db, err := sql.Open("mysql", "root:root@tcp(mysql:3306)/commerce_ai")
+	config, err := configs.LoadConfig(".")
+	if err != nil {
+		panic(err)
+	}
+	db, err := sql.Open(
+		config.DBDriver,
+		fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", config.DBUser, config.DBPassword, config.DBHost, config.DBPort, config.DBName),
+	)
 	if err != nil {
 		panic(err)
 	}
