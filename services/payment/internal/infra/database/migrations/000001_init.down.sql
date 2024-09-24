@@ -1,8 +1,8 @@
 -- Drop table `commerce_payment`.`payments`
 DROP TABLE IF EXISTS `commerce_payment`.`payments`;
 
--- Drop table `commerce_ai`.`cards`
-DROP TABLE IF EXISTS `commerce_ai`.`cards`;
+-- Drop table `commerce_payment`.`cards`
+DROP TABLE IF EXISTS `commerce_payment`.`cards`;
 
--- Drop table `commerce_ai`.`billing_addresses`
-DROP TABLE IF EXISTS `commerce_ai`.`billing_addresses`;
+-- Drop table `commerce_payment`.`billing_addresses`
+DROP TABLE IF EXISTS `commerce_payment`.`billing_addresses`;

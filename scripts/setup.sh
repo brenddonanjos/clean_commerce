@@ -1,6 +1,6 @@
 # Generate on services
-protoc ---go_out=. --go-grpc_out=. -proto_path=internal/infra/grpc --grpc-gateway_out=. internal/infra/grpc/proto/user.proto
-
+protoc --proto_path=internal/infra/grpc --go_out=. --go-grpc_out=. --grpc-gateway_out=. internal/infra/grpc/proto/billing_address.proto
+ 
 #Generateon gateway-service
 protoc --go_out=. --go-grpc_out=. --grpc-gateway_opt=paths=source_relative --proto_path=../payment/internal/infra/grpc/proto --proto_path=internal/infra/grpc --grpc-gateway_out=./internal/infra/grpc/pb_payment card.proto
 

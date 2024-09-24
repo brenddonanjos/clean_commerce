@@ -37,10 +37,6 @@ func main() {
 	createUserUseCase := usecase.NewCreateUserUseCase(repository)
 	createUserService := service.NewUserService(createUserUseCase)
 	pb.RegisterUserServiceServer(grpcServer, createUserService)
-	//address
-	createAddressUseCase := usecase.NewCreateAddressUseCase(repository)
-	createAddressService := service.NewAddressService(createAddressUseCase)
-	pb.RegisterAddressServiceServer(grpcServer, createAddressService)
 
 	reflection.Register(grpcServer)
 

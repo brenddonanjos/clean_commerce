@@ -24,18 +24,24 @@ func main() {
 		config.DBDriver,
 		fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", config.DBUser, config.DBPassword, config.DBHost, config.DBPort, config.DBName),
 	)
-
 	if err != nil {
 		panic(err)
 	}
 	defer db.Close()
 
+	grpcServer := grpc.NewServer()
+
+	//card
 	cardRepository := database.NewCardRepository(db)
 	createCardUsecase := usecase.NewCreateCardUseCase(cardRepository)
-
-	grpcServer := grpc.NewServer()
 	createCardService := service.NewCardService(createCardUsecase)
 	pb_payment.RegisterCardServiceServer(grpcServer, createCardService)
+	//billing address
+	billingAddressRepository := database.NewBillingAddressRepository(db)
+	createBillingAddressUsecase := usecase.NewCreateBillingAddressUseCase(billingAddressRepository)
+	createBillingAddressService := service.NewBillingAddressService(createBillingAddressUsecase)
+	pb_payment.RegisterBillingAddressServiceServer(grpcServer, createBillingAddressService)
+
 	reflection.Register(grpcServer)
 
 	fmt.Println("Starting gRPC Payment server on port 50051...")

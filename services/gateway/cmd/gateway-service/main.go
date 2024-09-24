@@ -26,17 +26,18 @@ func main() {
 	opts := []grpc.DialOption{grpc.WithTransportCredentials(insecure.NewCredentials())}
 
 	//Payment service
+	//card
 	err := pb_payment.RegisterCardServiceHandlerFromEndpoint(ctx, mux, "payment:50051", opts)
+	if err != nil {
+		panic(err)
+	}
+	//billing address
+	err = pb_payment.RegisterBillingAddressServiceHandlerFromEndpoint(ctx, mux, "payment:50051", opts)
 	if err != nil {
 		panic(err)
 	}
 
 	//User service
-	err = pb_user.RegisterAddressServiceHandlerFromEndpoint(ctx, mux, "user:50052", opts)
-	if err != nil {
-		panic(err)
-	}
-
 	err = pb_user.RegisterUserServiceHandlerFromEndpoint(ctx, mux, "user:50052", opts)
 	if err != nil {
 		panic(err)

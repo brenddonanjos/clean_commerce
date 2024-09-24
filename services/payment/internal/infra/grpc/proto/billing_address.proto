@@ -1,0 +1,42 @@
+syntax = "proto3";
+package pb_payment;
+option go_package = "internal/infra/grpc/pb_payment";
+import "google/protobuf/timestamp.proto";
+import "google/api/annotations.proto";
+
+message BillingAddressResponse {
+    int32 id = 1;
+    string street = 2;
+    string number = 3;
+    string zip_code = 4;
+    string city = 5;
+    string country = 6;
+    string state = 7;
+    int32 user_id = 8;
+    google.protobuf.Timestamp created_at = 9;
+    google.protobuf.Timestamp updated_at = 10;
+    google.protobuf.Timestamp deleted_at = 11; 
+}
+
+message CreateBillingAddressRequest {
+    string street = 1;
+    string number = 2;
+    string zip_code = 3;
+    string city = 4;
+    string country = 5;
+    string state = 6;
+    int32 user_id = 7;
+}
+
+message BillingAddressesResponse {
+    repeated BillingAddressResponse billing_addresses = 1;
+}
+
+service BillingAddressService {
+    rpc CreateBillingAddress(CreateBillingAddressRequest) returns (BillingAddressResponse) {
+        option (google.api.http) = {
+            post: "/billing_address"
+            body: "*"
+        };
+    }
+}

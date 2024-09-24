@@ -1,11 +1,12 @@
+CREATE SCHEMA IF NOT EXISTS `commerce_payment` DEFAULT CHARACTER SET utf8;
 -- -----------------------------------------------------
 -- Schema commerce_payment
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `commerce_payment` DEFAULT CHARACTER SET utf8 ;
+USE `commerce_payment`;
+
 -- -----------------------------------------------------
--- Schema new_schema1
+-- Table `commerce_payment`.`billing_addresses`
 -- -----------------------------------------------------
-USE `commerce_payment` ;
 CREATE TABLE IF NOT EXISTS `commerce_payment`.`billing_addresses` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `street` VARCHAR(45) NULL,
@@ -19,8 +20,8 @@ CREATE TABLE IF NOT EXISTS `commerce_payment`.`billing_addresses` (
   `updated_at` DATETIME NULL,
   `deleted_at` DATETIME NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_addresses_users1_idx` (`user_id` ASC) VISIBLE,
-  )
+  INDEX `fk_addresses_users1_idx` (`user_id` ASC)
+)
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
@@ -40,13 +41,14 @@ CREATE TABLE IF NOT EXISTS `commerce_payment`.`cards` (
   `updated_at` DATETIME NULL,
   `deleted_at` DATETIME NULL,
   PRIMARY KEY (`id`, `user_id`),
-  INDEX `fk_cards_users_idx` (`user_id` ASC) VISIBLE,
-  INDEX `fk_cards_billing_addresses_idx` (`billing_address_id` ASC) VISIBLE,
+  INDEX `fk_cards_users_idx` (`user_id` ASC),
+  INDEX `fk_cards_billing_addresses_idx` (`billing_address_id` ASC),
   CONSTRAINT `fk_cards_addresses`
     FOREIGN KEY (`billing_address_id`)
-    REFERENCES `commerce_payment`.`addresses` (`id`)
+    REFERENCES `commerce_payment`.`billing_addresses` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE NO ACTION
+)
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
@@ -62,16 +64,12 @@ CREATE TABLE IF NOT EXISTS `commerce_payment`.`payments` (
   `updated_at` DATETIME NULL,
   `deleted_at` DATETIME NULL,
   PRIMARY KEY (`id`, `order_id`, `card_id`),
-  INDEX `fk_payments_orders1_idx` (`order_id` ASC) VISIBLE,
-  INDEX `fk_payments_cards1_idx` (`card_id` ASC) VISIBLE,
-  CONSTRAINT `fk_payments_orders1`
-    FOREIGN KEY (`order_id`)
-    REFERENCES `commerce_payment`.`orders` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+  INDEX `fk_payments_orders1_idx` (`order_id` ASC),
+  INDEX `fk_payments_cards1_idx` (`card_id` ASC),
   CONSTRAINT `fk_payments_cards1`
     FOREIGN KEY (`card_id`)
     REFERENCES `commerce_payment`.`cards` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE NO ACTION
+)
 ENGINE = InnoDB;

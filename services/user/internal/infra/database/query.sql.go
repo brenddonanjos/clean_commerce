@@ -10,39 +10,8 @@ import (
 	"database/sql"
 )
 
-const createAddress = `-- name: CreateAddress :execresult
-INSERT INTO commerce_ai.addresses (street, number, zip_code, city, country, state, user_id, created_at, updated_at)
-VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-`
-
-type CreateAddressParams struct {
-	Street    sql.NullString
-	Number    sql.NullString
-	ZipCode   sql.NullString
-	City      sql.NullString
-	Country   sql.NullString
-	State     sql.NullString
-	UserID    int32
-	CreatedAt sql.NullTime
-	UpdatedAt sql.NullTime
-}
-
-func (q *Queries) CreateAddress(ctx context.Context, arg CreateAddressParams) (sql.Result, error) {
-	return q.db.ExecContext(ctx, createAddress,
-		arg.Street,
-		arg.Number,
-		arg.ZipCode,
-		arg.City,
-		arg.Country,
-		arg.State,
-		arg.UserID,
-		arg.CreatedAt,
-		arg.UpdatedAt,
-	)
-}
-
 const createUser = `-- name: CreateUser :execresult
-INSERT INTO commerce_ai.users (name, username, email, password, birth_date, created_at, updated_at)
+INSERT INTO commerce_user.users (name, username, email, password, birth_date, created_at, updated_at)
 VALUES (?, ?, ?, ?, ?, ?, ?)
 `
 
@@ -68,24 +37,8 @@ func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (sql.Res
 	)
 }
 
-const deleteAddress = `-- name: DeleteAddress :exec
-UPDATE commerce_ai.addresses
-SET deleted_at = ?
-WHERE id = ?
-`
-
-type DeleteAddressParams struct {
-	DeletedAt sql.NullTime
-	ID        int32
-}
-
-func (q *Queries) DeleteAddress(ctx context.Context, arg DeleteAddressParams) error {
-	_, err := q.db.ExecContext(ctx, deleteAddress, arg.DeletedAt, arg.ID)
-	return err
-}
-
 const deleteUser = `-- name: DeleteUser :exec
-UPDATE commerce_ai.users
+UPDATE commerce_user.users
 SET deleted_at = ?
 WHERE id = ?
 `
@@ -100,36 +53,13 @@ func (q *Queries) DeleteUser(ctx context.Context, arg DeleteUserParams) error {
 	return err
 }
 
-const getAddress = `-- name: GetAddress :one
-SELECT id, street, number, zip_code, city, country, state, user_id, created_at, updated_at, deleted_at FROM commerce_ai.addresses WHERE id = ? AND deleted_at IS NULL
-`
-
-func (q *Queries) GetAddress(ctx context.Context, id int32) (CommerceAiAddress, error) {
-	row := q.db.QueryRowContext(ctx, getAddress, id)
-	var i CommerceAiAddress
-	err := row.Scan(
-		&i.ID,
-		&i.Street,
-		&i.Number,
-		&i.ZipCode,
-		&i.City,
-		&i.Country,
-		&i.State,
-		&i.UserID,
-		&i.CreatedAt,
-		&i.UpdatedAt,
-		&i.DeletedAt,
-	)
-	return i, err
-}
-
 const getUser = `-- name: GetUser :one
-SELECT id, name, username, email, password, birth_date, created_at, updated_at, deleted_at FROM commerce_ai.users WHERE id = ?
+SELECT id, name, username, email, password, birth_date, created_at, updated_at, deleted_at FROM commerce_user.users WHERE id = ?
 `
 
-func (q *Queries) GetUser(ctx context.Context, id int32) (CommerceAiUser, error) {
+func (q *Queries) GetUser(ctx context.Context, id int32) (CommerceUserUser, error) {
 	row := q.db.QueryRowContext(ctx, getUser, id)
-	var i CommerceAiUser
+	var i CommerceUserUser
 	err := row.Scan(
 		&i.ID,
 		&i.Name,
@@ -144,58 +74,19 @@ func (q *Queries) GetUser(ctx context.Context, id int32) (CommerceAiUser, error)
 	return i, err
 }
 
-const listAddresses = `-- name: ListAddresses :many
-SELECT id, street, number, zip_code, city, country, state, user_id, created_at, updated_at, deleted_at FROM commerce_ai.addresses WHERE user_id = ? AND deleted_at IS NULL
-`
-
-func (q *Queries) ListAddresses(ctx context.Context, userID int32) ([]CommerceAiAddress, error) {
-	rows, err := q.db.QueryContext(ctx, listAddresses, userID)
-	if err != nil {
-		return nil, err
-	}
-	defer rows.Close()
-	var items []CommerceAiAddress
-	for rows.Next() {
-		var i CommerceAiAddress
-		if err := rows.Scan(
-			&i.ID,
-			&i.Street,
-			&i.Number,
-			&i.ZipCode,
-			&i.City,
-			&i.Country,
-			&i.State,
-			&i.UserID,
-			&i.CreatedAt,
-			&i.UpdatedAt,
-			&i.DeletedAt,
-		); err != nil {
-			return nil, err
-		}
-		items = append(items, i)
-	}
-	if err := rows.Close(); err != nil {
-		return nil, err
-	}
-	if err := rows.Err(); err != nil {
-		return nil, err
-	}
-	return items, nil
-}
-
 const listUsers = `-- name: ListUsers :many
-SELECT id, name, username, email, password, birth_date, created_at, updated_at, deleted_at FROM commerce_ai.users
+SELECT id, name, username, email, password, birth_date, created_at, updated_at, deleted_at FROM commerce_user.users
 `
 
-func (q *Queries) ListUsers(ctx context.Context) ([]CommerceAiUser, error) {
+func (q *Queries) ListUsers(ctx context.Context) ([]CommerceUserUser, error) {
 	rows, err := q.db.QueryContext(ctx, listUsers)
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
-	var items []CommerceAiUser
+	var items []CommerceUserUser
 	for rows.Next() {
-		var i CommerceAiUser
+		var i CommerceUserUser
 		if err := rows.Scan(
 			&i.ID,
 			&i.Name,
@@ -220,39 +111,8 @@ func (q *Queries) ListUsers(ctx context.Context) ([]CommerceAiUser, error) {
 	return items, nil
 }
 
-const updateAddress = `-- name: UpdateAddress :exec
-UPDATE commerce_ai.addresses
-SET street = ?, number = ?, zip_code = ?, city = ?, country = ?, state = ?, updated_at = ?
-WHERE id = ?
-`
-
-type UpdateAddressParams struct {
-	Street    sql.NullString
-	Number    sql.NullString
-	ZipCode   sql.NullString
-	City      sql.NullString
-	Country   sql.NullString
-	State     sql.NullString
-	UpdatedAt sql.NullTime
-	ID        int32
-}
-
-func (q *Queries) UpdateAddress(ctx context.Context, arg UpdateAddressParams) error {
-	_, err := q.db.ExecContext(ctx, updateAddress,
-		arg.Street,
-		arg.Number,
-		arg.ZipCode,
-		arg.City,
-		arg.Country,
-		arg.State,
-		arg.UpdatedAt,
-		arg.ID,
-	)
-	return err
-}
-
 const updateUser = `-- name: UpdateUser :exec
-UPDATE commerce_ai.users
+UPDATE commerce_user.users
 SET name = ?, username = ?, email = ?, birth_date = ?, updated_at = ?
 WHERE id = ?
 `

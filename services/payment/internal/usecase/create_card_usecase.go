@@ -42,7 +42,7 @@ func NewCreateCardUseCase(cardRepository entity.CardRepositoryInterface) *Create
 
 func (uc *CreateCardUseCase) Execute(input CardInputDTO) (*CardOutputDTO, error) {
 	fmt.Println("Use case: Saving card...")
-	card := entity.NewCard(
+	card, err := entity.NewCard(
 		input.CardName,
 		input.Number,
 		input.HolderName,
@@ -52,7 +52,11 @@ func (uc *CreateCardUseCase) Execute(input CardInputDTO) (*CardOutputDTO, error)
 		input.UserId,
 		input.AddressId,
 	)
-	card, err := uc.CardRepository.Save(card)
+	if err != nil {
+		return nil, err
+	}
+
+	card, err = uc.CardRepository.Save(card)
 	if err != nil {
 		return nil, err
 	}
