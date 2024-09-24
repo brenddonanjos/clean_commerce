@@ -3,6 +3,7 @@ module github.com/brenddonanjos/clean_commerce/services/payment
 go 1.22.7
 
 require (
+	github.com/DATA-DOG/go-sqlmock v1.5.2
 	github.com/go-sql-driver/mysql v1.8.1
 	github.com/golang/protobuf v1.5.3
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.22.0
