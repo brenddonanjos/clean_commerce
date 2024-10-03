@@ -2,7 +2,7 @@
 
 Clean Commerce is a microservices-based e-commerce platform that includes a **User Service** for user registration and managing, a **Payment Service** for managing billing addresses and card information, both operating with gRPC protocol. 
 <p>
-One **API Gateway** service to facilitates communication between these services, handling HTTP requests and routing them appropriately. 
+And one **API Gateway** service to facilitates communication between these services, handling HTTP requests and routing them appropriately. 
 </p>
 <p>
 Currently, users can register, add billing addresses, and manage credit card information through the payment service, while authentication processes are in development to enhance security.
