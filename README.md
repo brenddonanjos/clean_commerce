@@ -14,7 +14,9 @@ One **API Gateway** service to facilitates communication between these services,
 - Clean Architecture
 
 ### Architecture
+<div  id="architecture">
 In this project, I decided to implements **Clean Architecture**, a software design philosophy that emphasizes separation of concerns, ensuring that the system's core logic is uncoupled from external frameworks, user interfaces, and databases, which promotes maintainability and testability.
+
 ```mermaid
 graph LR
 A -- Instance -->D{Database} 
@@ -37,8 +39,10 @@ E
 end
 ```
 
+</div>
+
 ###   Installation
-<div  id="install>
+<div  id="install">
 <p>To install the application, the docker and docker-compose must be installed correctly on your machine</p><p>The application will start on localhost **(127.0.0.1)** on **8000 port**, the mysql db will start on **3306 port**, and the microsservices will use the **50051** and **50052** ports, make sure these ports are free before starting the installation.</p>
 <p>1. Enter on project folder: </p>
 
@@ -66,9 +70,10 @@ docker-compose down
 ```
 docker-compose up
 ```
+</div>
 
 ### Testing
-
+<div id="testing">
 To automated tests, the following layers are covered by tests:
 
 -   Users Repository: In the directory `services > users > internal > infra > database`
@@ -85,3 +90,4 @@ docker exec -it payment go test -v ./internal/infra/database
 ```
 
 To test the functionality in practice, a Postman collection has been made available in the `/docs` directory.
+</div>
