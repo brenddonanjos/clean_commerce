@@ -93,4 +93,6 @@ make test
 ```
 
 To test the functionality in practice, a Postman collection has been made available in the `/docs` directory.
+<p>
 [Click Here to check endpoints, requests and response](docs/README.md)
+</p>

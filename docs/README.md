@@ -1,9 +1,9 @@
 ## Endpoints
 
 ### User Register
-Method: <b>POST</b>
-URL: http://localhost:8000/user
-Body: 
+<p>Method: <b>POST</b></p>
+<p>URL: http://localhost:8000/user</p>
+<p>Body: 
 ```
 {
     "name": "User Postman",
@@ -13,6 +13,7 @@ Body:
     "birth_date": "1997-10-10"
 }
 ```
+</p>
 
 Response: 
 ```
@@ -29,9 +30,9 @@ Response:
 }
 ```
 ### Billing Address Register
-Method: <b>POST</b>
-URL: http://localhost:8000/billing_address
-Body: 
+<p>Method: <b>POST</b></p>
+<p>URL: http://localhost:8000/billing_address</p>
+<p>Body: 
 ```
 {
   "street": "123 Main Street",
@@ -43,6 +44,7 @@ Body:
   "user_id": "1"
 }
 ```
+</p>
 
 Response: 
 ```
@@ -62,9 +64,9 @@ Response:
 ```
 
 ### Card Register
-Method: <b>POST</b>
-URL: http://localhost:8000/card
-Body: 
+<p>Method: <b>POST</b></p>
+<p>URL: http://localhost:8000/card</p>
+<p>Body: 
 ```
 {
     "card_name": "API Gateway Card",
@@ -77,6 +79,7 @@ Body:
     "address_id": 1
 }
 ```
+</p>
 
 Response: 
 ```
