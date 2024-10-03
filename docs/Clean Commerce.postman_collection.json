@@ -33,7 +33,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"card_name\": \"API Gateway\",\n    \"number\": \"1234567890123456\",\n    \"holder_name\": \"Brenddon Anjos\",\n    \"expiry_month\": 12,\n    \"expiry_year\": 2025,\n    \"cvv\": 123,\n    \"user_id\": 1,\n    \"address_id\": 1\n}",
+							"raw": "{\n    \"card_name\": \"API Gateway Card\",\n    \"number\": \"1234567890123456\",\n    \"holder_name\": \"Jhon Doe\",\n    \"expiry_month\": 12,\n    \"expiry_year\": 2025,\n    \"cvv\": 123,\n    \"user_id\": 1,\n    \"address_id\": 1\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -111,7 +111,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"User Gateway\",\n    \"username\": \"usergateway\",\n    \"email\": \"gate@way.com\",\n    \"password\": \"123456\",\n    \"birth_date\": \"1995-09-30\"\n}",
+							"raw": "{\n    \"name\": \"User Postman\",\n    \"username\": \"userpostman\",\n    \"email\": \"user@postman.com\",\n    \"password\": \"123456\",\n    \"birth_date\": \"1997-10-10\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
