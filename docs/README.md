@@ -3,7 +3,8 @@
 ### User Register
 <p>Method: <b>POST</b></p>
 <p>URL: http://localhost:8000/user</p>
-<p>Body: 
+<p>Body: </p>
+
 ```
 {
     "name": "User Postman",
@@ -13,7 +14,7 @@
     "birth_date": "1997-10-10"
 }
 ```
-</p>
+
 
 Response: 
 ```
@@ -32,7 +33,8 @@ Response:
 ### Billing Address Register
 <p>Method: <b>POST</b></p>
 <p>URL: http://localhost:8000/billing_address</p>
-<p>Body: 
+<p>Body: </p>
+
 ```
 {
   "street": "123 Main Street",
@@ -44,7 +46,6 @@ Response:
   "user_id": "1"
 }
 ```
-</p>
 
 Response: 
 ```
@@ -66,7 +67,8 @@ Response:
 ### Card Register
 <p>Method: <b>POST</b></p>
 <p>URL: http://localhost:8000/card</p>
-<p>Body: 
+<p>Body: </p>
+
 ```
 {
     "card_name": "API Gateway Card",
@@ -79,7 +81,6 @@ Response:
     "address_id": 1
 }
 ```
-</p>
 
 Response: 
 ```
